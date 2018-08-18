@@ -48,11 +48,12 @@ exports.postContact = (req, res) => {
     fromName = req.user.profile.name || '';
     fromEmail = req.user.email;
   }
-
+    console.log(fromEmail);
+getReceiver(fromName,fromEmail,req.body.message);
   const mailOptions = {
-    to: 'your@email.com',
+    to: 'ryanyang99@hotmail.com',
     from: `${fromName} <${fromEmail}>`,
-    subject: 'Contact Form | Hackathon Starter',
+    subject: 'Inquiries From Website',
     text: req.body.message
   };
 
@@ -65,3 +66,31 @@ exports.postContact = (req, res) => {
     res.redirect('/contact');
   });
 };
+
+
+function getReceiver(name,email,message){
+    
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
+
+
+var mailOptions = {
+  from: email,
+  to: 'ryanyang99@hotmail.com',
+  subject: "From " + email + " Website inquiries",
+  text: message
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+});
+}
