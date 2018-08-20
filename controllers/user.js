@@ -12,7 +12,7 @@ const randomBytesAsync = promisify(crypto.randomBytes);
  */
 exports.getLogin = (req, res) => {
   if (req.user) {
-    return res.redirect('/');
+    return res.redirect('https://drive.google.com/file/d/18_zmliZ9HItJELdl70y-ADRlGdTbP4xt/view?usp=sharing');
   }
   res.render('account/login', {
     title: 'Login'
