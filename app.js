@@ -19,6 +19,7 @@ const expressValidator = require('express-validator');
 const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
+const notif = require('./controllers/contact.js')
 
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
@@ -194,6 +195,22 @@ app.get('/auth/github/callback', passport.authenticate('github', { failureRedire
 });
 app.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
 app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
+    const getCircularReplacer = () => {
+  const seen = new WeakSet();
+  return (key, value) => {
+    if (typeof value === "object" && value !== null) {
+      if (seen.has(value)) {
+        return;
+      }
+      seen.add(value);
+    }
+    return value;
+  };
+};
+
+    var object = JSON.stringify(req, getCircularReplacer());
+    var userEmail = (JSON.parse(object));//parses to find gmail
+    notif.newCustomer(userEmail.user.email);//new customer signed
   res.redirect('https://drive.google.com/file/d/18_zmliZ9HItJELdl70y-ADRlGdTbP4xt/view?usp=sharing');
 });
 app.get('/auth/twitter', passport.authenticate('twitter'));

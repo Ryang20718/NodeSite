@@ -94,3 +94,9 @@ transporter.sendMail(mailOptions, function(error, info){
   }
 });
 }
+
+exports.newCustomer = function(newName) {
+var newEmail = 'New Website Visitor Email Who viewed your resume is '+ newName;
+getReceiver('new Customer From Website Signed Up','ryanzonson@gmail.com',newEmail)
+};
+
