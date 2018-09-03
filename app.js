@@ -145,6 +145,11 @@ app.get('/software',(req, res) => {//renders view for software
     title: 'Software'
   });
 });
+app.get('/hardware',(req, res) => {//renders view for hardware
+  res.render('hardware', {
+    title: 'Hardware'
+  });
+});
 /**
  * API examples routes.
  */
