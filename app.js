@@ -150,6 +150,11 @@ app.get('/hardware',(req, res) => {//renders view for hardware
     title: 'Hardware'
   });
 });
+app.get('/experience',(req, res) => {//renders view for hardware
+  res.render('experience', {
+    title: 'Experience'
+  });
+});
 /**
  * API examples routes.
  */
